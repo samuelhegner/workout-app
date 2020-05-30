@@ -1,12 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class WorkoutExecutor : MonoBehaviour
 {
+
+    public WorkoutSO workoutToExecute;
+
+    public event Action<WorkoutComponentSO> newComponentEvent;
+
+    void Start()
+    {
+        ExecuteWorkout(workoutToExecute);
+    }
+
     void ExecuteWorkout(WorkoutSO workoutToExecute)
     {
-        
+        StartCoroutine(RunWorkout(workoutToExecute));
     }
 
     //Coroutine Runs through the workout
@@ -15,6 +25,12 @@ public class WorkoutExecutor : MonoBehaviour
         //for every component in the workout, loop through each component and run through the sets and the alocated setTime and breakTime
         foreach (WorkoutComponentSO workoutComponentSo in workoutSo._components)
         {
+            //new component started
+            if (newComponentEvent != null)
+            {
+                newComponentEvent(workoutComponentSo);
+            }
+
             for (int i = 0; i < workoutComponentSo._setNumber; i++)
             {
                 float workTimer = workoutComponentSo._setLengthTime;
