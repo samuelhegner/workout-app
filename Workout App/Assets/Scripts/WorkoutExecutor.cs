@@ -14,7 +14,15 @@ public class WorkoutExecutor : MonoBehaviour
         get => _timeLeft;
     }
 
+    /// <summary>
+    /// Event gets called when a new Workout component starts
+    /// </summary>
     public event Action<WorkoutComponentSO> newComponentEvent;
+    
+    /// <summary>
+    /// Event gets called when a new set starts
+    /// </summary>
+    public event Action<WorkoutComponentSO, int> newSetEvent;
 
     void Start()
     {
@@ -40,6 +48,7 @@ public class WorkoutExecutor : MonoBehaviour
 
             for (int i = 0; i < workoutComponentSo._setNumber; i++)
             {
+                newSetEvent(workoutComponentSo, i + 1);
                 print("Timer Started");
                 float workTimer = workoutComponentSo._setLengthTime;
 
