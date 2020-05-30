@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Test
   _subName: 2
-  _componentTimeLength: 10
+  _setLengthTime: 0
   _setNumber: 5
   _setBreakTime: 0
