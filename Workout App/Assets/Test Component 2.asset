@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdaf71d667d22964f8ce2d454584d67e, type: 3}
   m_Name: Test Component 2
   m_EditorClassIdentifier: 
-  _name: Test
+  _name: Test 2
   _subName: 2
   _setLengthTime: 10
   _setNumber: 5
