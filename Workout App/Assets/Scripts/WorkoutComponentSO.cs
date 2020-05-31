@@ -9,19 +9,19 @@ public class WorkoutComponentSO : ScriptableObject
     [Range(1, 50)] public int _setNumber;
     public int _setBreakTime;
 
-    public void Init(string name, string subname, int componentTimeLength, int setNumber, int setBreakTime)
+    public void Init(WorkoutComponentPackage infoPackage)
     {
-        this._name = name;
-        this._subName = subname;
-        this._setLengthTime = componentTimeLength;
-        this._setNumber = setNumber;
-        this._setBreakTime = setBreakTime;
+        this._name = infoPackage._nameInfo;
+        this._subName = infoPackage._subNameInfo;
+        this._setLengthTime = infoPackage._setLengthTimeInfo;
+        this._setNumber = infoPackage._setCountInfo;
+        this._setBreakTime = infoPackage._setBreakTimeInfo;
     }
 
-    public static WorkoutComponentSO CreateInstance(string name, string subname, int componentTimeLength, int setNumber, int setBreakTime)
+    public static WorkoutComponentSO CreateInstance(WorkoutComponentPackage infoPackage)
     {
         var data = ScriptableObject.CreateInstance<WorkoutComponentSO>();
-        data.Init(name, subname, componentTimeLength, setNumber, setBreakTime);
+        data.Init(infoPackage);
         return data;
     }
 }
