@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class CreateWorkoutComponent : MonoBehaviour
 {
+    public WorkoutSO CurrentWorkoutSo;
+    
     public TMP_InputField _nameInput;
     public TMP_InputField _subNameInput;
 
@@ -35,7 +38,8 @@ public class CreateWorkoutComponent : MonoBehaviour
 
     void SaveWorkoutComponent(WorkoutComponentPackage package)
     {
-        
+        WorkoutComponentSO newComponentSo = WorkoutComponentSO.CreateInstance(package);
+        CurrentWorkoutSo._components.Add(newComponentSo);
     }
 
 
@@ -49,6 +53,16 @@ public class CreateWorkoutComponent : MonoBehaviour
     {
         int.TryParse(minutes, out int minuteInt);
         int.TryParse(seconds, out int secondInt);
+
+        if (minutes == String.Empty)
+        {
+            minuteInt = 0;
+        }
+
+        if (seconds == String.Empty)
+        {
+            secondInt = 0;
+        }
 
         int totalSeconds = (minuteInt * 60) + secondInt;
         return totalSeconds;

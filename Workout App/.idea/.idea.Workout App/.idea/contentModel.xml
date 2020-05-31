@@ -11,6 +11,7 @@
           <e p="CreateWorkoutComponent.cs" t="Include" />
           <e p="DisplayWorkout.cs" t="Include" />
           <e p="LimitInputToSeconds.cs" t="Include" />
+          <e p="SaveButtonEnabler.cs" t="Include" />
           <e p="WorkoutComponentSO.cs" t="Include" />
           <e p="WorkoutExecutor.cs" t="Include" />
           <e p="WorkoutSO.cs" t="Include" />
