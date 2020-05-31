@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdaf71d667d22964f8ce2d454584d67e, type: 3}
-  m_Name: Test Component 1
+  m_Name: Test Component 3
   m_EditorClassIdentifier: 
   _name: Test
-  _subName: 1
-  _setLengthTime: 105
-  _setNumber: 1
-  _setBreakTime: 15
+  _subName: 3
+  _setLengthTime: 10
+  _setNumber: 50
+  _setBreakTime: 100

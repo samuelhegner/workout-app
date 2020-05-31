@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a68d20b23c2af4389abe1e67192d69, type: 3}
-  m_Name: Test Workout
+  m_Name: Test Workout 1
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 11400000, guid: ca5f1dc50b79bb744b9c271943f08bd1, type: 2}
   - {fileID: 11400000, guid: df3b6ceefbf3dde498e31ee38962b0cf, type: 2}
+  - {fileID: 11400000, guid: 312f7ea9cb364574aa1c03343c3239f5, type: 2}
