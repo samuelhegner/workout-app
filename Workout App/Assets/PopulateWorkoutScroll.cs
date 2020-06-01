@@ -23,7 +23,7 @@ public class PopulateWorkoutScroll : MonoBehaviour
         {
             GameObject newWorkoutUI = Instantiate(_workoutUIPrefab, Vector3.zero, Quaternion.identity, transform);
             
-            newWorkoutUI.transform.localPosition = new Vector3(0, _initialYValue + (_gapYValue * i), 0);
+            newWorkoutUI.transform.localPosition = new Vector3(0, _initialYValue + (-_gapYValue * i), 0);
             
             newWorkoutUI.GetComponent<UpdateWorkoutUI>().UpdateInformation(WorkoutList.instance.workouts[i]);
 
