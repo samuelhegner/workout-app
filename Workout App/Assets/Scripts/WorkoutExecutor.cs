@@ -2,9 +2,11 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Class that can execute any workout
+/// </summary>
 public class WorkoutExecutor : MonoBehaviour
 {
-
     public WorkoutSO workoutToExecute;
 
     private float _timeLeft;
@@ -26,7 +28,6 @@ public class WorkoutExecutor : MonoBehaviour
 
     void Start()
     {
-        ExecuteWorkout(workoutToExecute);
     }
 
     void ExecuteWorkout(WorkoutSO workoutToExecute)

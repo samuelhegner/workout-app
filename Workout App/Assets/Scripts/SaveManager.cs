@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+/// <summary>
+/// Class that saves and loads workouts at runtime
+/// </summary>
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
@@ -23,10 +27,29 @@ public class SaveManager : MonoBehaviour
         return Directory.Exists(persistentDataPath);
     }
 
+    private void OnDisable()
+    {
+        SaveAllWorkouts();
+    }
+
 
     public void SaveAllWorkouts()
     {
-        for(int i = 0; i < WorkoutList.instance.workouts.Count; i++)
+        if (!IsSaveFile())
+        {
+            Directory.CreateDirectory(persistentDataPath);
+        }
+
+        string[] oldDirectoryPaths = Directory.GetDirectories(persistentDataPath);
+
+        print(oldDirectoryPaths[0]);
+
+        foreach (var oldDirectory in oldDirectoryPaths)
+        {
+            Directory.Delete(oldDirectory, true);
+        }
+
+        for (int i = 0; i < WorkoutList.instance.workouts.Count; i++)
         {
             SaveWorkout(WorkoutList.instance.workouts[i], i);
         }
@@ -34,13 +57,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveWorkout(WorkoutSO workoutSo, int index)
     {
-        if (!IsSaveFile())
-        {
-            Directory.CreateDirectory(persistentDataPath);
-        }
-
-
-        string workoutPath = persistentDataPath + "/workout_"+ index;
+        string workoutPath = persistentDataPath + "/workout_" + index;
 
         if (!Directory.Exists(workoutPath))
         {
@@ -49,7 +66,7 @@ public class SaveManager : MonoBehaviour
 
         BinaryFormatter bf = new BinaryFormatter();
 
-        FileStream file = File.Create(workoutPath + "/" + workoutSo.name + ".txt");
+        FileStream file = File.Create(workoutPath + "/" + workoutSo._name + ".txt");
 
         var json = JsonUtility.ToJson(workoutSo);
 
@@ -83,27 +100,45 @@ public class SaveManager : MonoBehaviour
             return;
 
         int indexChecker = 0;
-        
-        string workoutPath = persistentDataPath + "/workout_"+ indexChecker;
-        
+
+        string workoutPath = persistentDataPath + "/workout_" + indexChecker;
+
+        BinaryFormatter bf = new BinaryFormatter();
+
         while (Directory.Exists(workoutPath))
         {
-            //TODO deserialize the workout and all of its components and push it into the WorkoutList list
             string[] files = Directory.GetFiles(workoutPath);
+            WorkoutSO savedWorkoutSo = ScriptableObject.CreateInstance<WorkoutSO>();
 
-            foreach (var name in files)
+            foreach (var foundFile in files)
             {
-                print(name);
+                FileStream file = File.Open(foundFile, FileMode.Open);
+                JsonUtility.FromJsonOverwrite((string) bf.Deserialize(file), savedWorkoutSo);
+                file.Close();
             }
             
+            savedWorkoutSo._components.Clear();
+            
+            string[] componentDirectoryPaths = Directory.GetDirectories(workoutPath);
+
+            foreach (var foundComponentDirectoryPath in componentDirectoryPaths)
+            {
+                string[] componentFiles = Directory.GetFiles(foundComponentDirectoryPath);
+
+                foreach (var component in componentFiles)
+                {
+                    WorkoutComponentSO savedWorkoutComponentSo = ScriptableObject.CreateInstance<WorkoutComponentSO>();
+                    FileStream file = File.Open(component, FileMode.Open);
+                    JsonUtility.FromJsonOverwrite((string) bf.Deserialize(file), savedWorkoutComponentSo);
+                    file.Close();
+
+                    savedWorkoutSo._components.Add(savedWorkoutComponentSo);
+                }
+            }
+
+            WorkoutList.instance.workouts.Add(savedWorkoutSo);
             indexChecker++;
-            workoutPath = persistentDataPath + "/workout_"+ indexChecker;
+            workoutPath = persistentDataPath + "/workout_" + indexChecker;
         }
-
-    }
-
-    public void LoadWorkout()
-    {
-        
     }
 }

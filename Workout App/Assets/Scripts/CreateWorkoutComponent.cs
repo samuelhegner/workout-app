@@ -30,8 +30,8 @@ public class CreateWorkoutComponent : MonoBehaviour
         collectedInfoPackage._nameInfo = _nameInput.text;
         collectedInfoPackage._subNameInfo = _subNameInput.text;
         collectedInfoPackage._setCountInfo = (int)_setCountInput.value;
-        collectedInfoPackage._setLengthTimeInfo = ConvertIntoSeconds(_setLengthTimeInput[0].text, _setLengthTimeInput[1].text);
-        collectedInfoPackage._setBreakTimeInfo = ConvertIntoSeconds(_setBreakTimeInput[0].text, _setBreakTimeInput[1].text);
+        collectedInfoPackage._setLengthTimeInfo = TimeConverter.ConvertIntoSeconds(_setLengthTimeInput[0].text, _setLengthTimeInput[1].text);
+        collectedInfoPackage._setBreakTimeInfo = TimeConverter.ConvertIntoSeconds(_setBreakTimeInput[0].text, _setBreakTimeInput[1].text);
         
         SaveWorkoutComponent(collectedInfoPackage);
     }
@@ -43,30 +43,7 @@ public class CreateWorkoutComponent : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Parses two strings into a total second count
-    /// </summary>
-    /// <param name="minutes"> Minute string </param>
-    /// <param name="seconds"> Second string </param>
-    /// <returns> Returns the total number of seconds </returns>
-    int ConvertIntoSeconds(string minutes, string seconds)
-    {
-        int.TryParse(minutes, out int minuteInt);
-        int.TryParse(seconds, out int secondInt);
-
-        if (minutes == String.Empty)
-        {
-            minuteInt = 0;
-        }
-
-        if (seconds == String.Empty)
-        {
-            secondInt = 0;
-        }
-
-        int totalSeconds = (minuteInt * 60) + secondInt;
-        return totalSeconds;
-    }
+    
 }
 
 /// <summary>

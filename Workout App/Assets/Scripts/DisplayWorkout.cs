@@ -26,7 +26,7 @@ public class DisplayWorkout : MonoBehaviour
     private void Update()
     {
         if(_executor.TimeLeft > 0)
-            _componentTimeLeft.text = ConvertTimeLeftFormat(_executor.TimeLeft);
+            _componentTimeLeft.text = TimeConverter.ConvertTimeLeftFormat(_executor.TimeLeft);
     }
 
 
@@ -47,19 +47,7 @@ public class DisplayWorkout : MonoBehaviour
         _componentSetIndicator.text = setIdicatorText;
     }
     
-    /// <summary>
-    /// Function that converts float number of seconds into Minute:Second format
-    /// </summary>
-    /// <param name="timeToConvert"> The float value to convert </param>
-    /// <returns> Returns the float value as a MIN:SEC string</returns>
-    string ConvertTimeLeftFormat(float timeToConvert)
-    {
-        int minutes = Mathf.FloorToInt(timeToConvert / 60f);
-        int seconds = Mathf.CeilToInt(timeToConvert - minutes * 60);
-        string minutesAndSeconds = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-        return minutesAndSeconds;
-    }
+    
 
     void OnDisable()
     {
