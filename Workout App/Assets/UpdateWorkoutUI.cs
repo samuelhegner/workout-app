@@ -6,19 +6,11 @@ using UnityEngine;
 
 public class UpdateWorkoutUI : MonoBehaviour
 {
-    public WorkoutSO _workoutSo;
-
     [SerializeField] private TextMeshProUGUI _nameDisplay;
     [SerializeField] private TextMeshProUGUI _componentDisplay;
     [SerializeField] private TextMeshProUGUI _timeDisplay;
 
-    private void Start()
-    {
-        _workoutSo = WorkoutList.instance.workouts[0];
-        UpdateInformation();
-    }
-
-    public void UpdateInformation()
+    public void UpdateInformation(WorkoutSO _workoutSo)
     {
         _nameDisplay.text = _workoutSo._name;
 
@@ -26,11 +18,11 @@ public class UpdateWorkoutUI : MonoBehaviour
         _componentDisplay.text = totalComponents;
 
 
-        string totalTime = "Total Time: " + CalculateTotalComponentTime();
+        string totalTime = "Total Time: " + CalculateTotalComponentTime(_workoutSo);
         _timeDisplay.text = totalTime;
     }
 
-    private string CalculateTotalComponentTime()
+    private string CalculateTotalComponentTime(WorkoutSO _workoutSo)
     {
         int totalSeconds = 0;
         foreach (WorkoutComponentSO component in _workoutSo._components)
