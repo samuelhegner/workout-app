@@ -27,7 +27,7 @@ public class PopulateWorkoutScroll : MonoBehaviour
             
             newWorkoutUI.GetComponent<UpdateWorkoutUI>().UpdateInformation(WorkoutList.instance.workouts[i]);
 
-            _rectTransform.offsetMin = new Vector2(0, i * 100);
+            _rectTransform.offsetMin = _rectTransform.offsetMin + new Vector2(0, -_gapYValue);
         }
     }
 }
